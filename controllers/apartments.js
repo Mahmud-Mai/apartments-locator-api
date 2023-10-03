@@ -2,7 +2,7 @@ import Apartment from "../models/apartments.js";
 
 export const getAllApartments = async (req, res) => {
   try {
-    const apartments = await Apartment.find();
+    const apartments = await Apartment.find().populate("rooms");
     res.status(200).json(apartments);
   } catch (error) {
     console.error(error);
@@ -11,8 +11,17 @@ export const getAllApartments = async (req, res) => {
 };
 
 export const createApartment = async (req, res) => {
-  const { name, description, address, neighbourhood, price, images, type } =
-    req.body;
+  const {
+    name,
+    description,
+    address,
+    neighbourhood,
+    price,
+    images,
+    type,
+    rooms,
+  } = req.body;
+
   const newApartment = new Apartment({
     name,
     description,
@@ -21,6 +30,7 @@ export const createApartment = async (req, res) => {
     price,
     images,
     type,
+    rooms,
   });
 
   try {
@@ -42,7 +52,7 @@ export const getApartmentById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const apartment = await Apartment.findById(id);
+    const apartment = await Apartment.findById(id).populate("rooms");
     if (!apartment) {
       res.status(404).json({ message: "Apartment not found" });
       return;
@@ -56,13 +66,21 @@ export const getApartmentById = async (req, res) => {
 
 export const updateApartment = async (req, res) => {
   const { id } = req.params;
-  const { name, description, address, neighbourhood, price, images, type } =
-    req.body;
+  const {
+    name,
+    description,
+    address,
+    neighbourhood,
+    price,
+    images,
+    type,
+    rooms,
+  } = req.body;
 
   try {
     const apartment = await Apartment.findById(id);
     if (!apartment) {
-      res.status(404).json({ message: error.message, error: error });
+      res.status(404).json({ message: "Apartment not found" });
       return;
     }
 
@@ -73,6 +91,7 @@ export const updateApartment = async (req, res) => {
     apartment.price = price;
     apartment.images = images;
     apartment.type = type;
+    apartment.rooms = rooms;
 
     await apartment.save();
     res.status(200).json({ message: "Apartment updated successfully" });

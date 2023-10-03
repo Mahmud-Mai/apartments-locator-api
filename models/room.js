@@ -23,6 +23,11 @@ const roomSchema = new Schema({
     ref: "Apartment",
     required: true,
   },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
 });
 const Room = new model("Room", roomSchema);
 export default Room;
