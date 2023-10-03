@@ -4,6 +4,7 @@ import logger from "morgan";
 import "dotenv/config";
 
 import indexRouter from "./routes/index.js";
+import roomsRouter from "./routes/rooms.js";
 import usersRouter from "./routes/users.js";
 import apartmentsRouter from "./routes/apartments.js";
 import { connect } from "./utils/db.js";
@@ -18,6 +19,7 @@ app.use(express.static("public"));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/rooms", roomsRouter);
 app.use("/apartments", apartmentsRouter);
 
 connect();
