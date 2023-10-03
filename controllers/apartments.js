@@ -22,6 +22,8 @@ export const createApartment = async (req, res) => {
     rooms,
   } = req.body;
 
+  const user = req.user;
+
   const newApartment = new Apartment({
     name,
     description,
@@ -31,6 +33,7 @@ export const createApartment = async (req, res) => {
     images,
     type,
     rooms,
+    user,
   });
 
   try {
@@ -77,6 +80,8 @@ export const updateApartment = async (req, res) => {
     rooms,
   } = req.body;
 
+  const user = req.user;
+
   try {
     const apartment = await Apartment.findById(id);
     if (!apartment) {
@@ -92,6 +97,7 @@ export const updateApartment = async (req, res) => {
     apartment.images = images;
     apartment.type = type;
     apartment.rooms = rooms;
+    apartment.user = user;
 
     await apartment.save();
     res.status(200).json({ message: "Apartment updated successfully" });
