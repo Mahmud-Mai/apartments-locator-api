@@ -15,6 +15,11 @@ const userSchema = new Schema({
     required: true,
     minlength: 6,
   },
+  role: {
+    type: String,
+    enum: ["User", "Admin", "SuperAdmin"],
+    default: "User",
+  }
 });
 
 const User = new model("User", userSchema);
