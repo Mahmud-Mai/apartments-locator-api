@@ -11,17 +11,12 @@ const apartmentSchema = new Schema({
     type: String,
     required: true,
   },
-  neighbourhood: {
-    type: String,
-    enum: ["Zaria", "Samaru", "Dogon Itche", "Zango"],
-    required: true,
-  },
-  price: {
-    type: Number,
-    required: true,
+  location: {
+    type: Schema.Types.ObjectId,
+    ref: "Location",
   },
   images: [String],
-  mapsCoordinates: {
+  mapCoordinates: {
     type: {
       type: String,
       enum: ["Point"],
