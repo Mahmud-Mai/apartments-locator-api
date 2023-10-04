@@ -18,6 +18,9 @@ const roomSchema = new Schema({
     ],
     required: true,
   },
+  price: {
+    type: Number,
+  },
   apartment: {
     type: Schema.Types.ObjectId,
     ref: "Apartment",
@@ -27,6 +30,10 @@ const roomSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
     required: true,
+  },
+  availability: {
+    required: true,
+    type: Boolean,
   },
 });
 const Room = new model("Room", roomSchema);
